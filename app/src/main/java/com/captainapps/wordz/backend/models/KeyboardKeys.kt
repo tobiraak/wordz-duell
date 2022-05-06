@@ -2,9 +2,11 @@ package com.captainapps.wordz.backend.models
 
 import androidx.annotation.Keep
 import com.captainapps.wordz.backend.models.KeyboardKeys.Key.Companion.englishKeys
+import com.captainapps.wordz.backend.models.KeyboardKeys.Key.Companion.germanKeys
 
 enum class Language(val keys: List<Char>) {
-    English(englishKeys)
+    English(englishKeys),
+    German(germanKeys)
 }
 
 abstract class KeyboardKeys(
@@ -48,6 +50,37 @@ abstract class KeyboardKeys(
                 'B',
                 'N',
                 'M')
+            val germanKeys = listOf(
+                'Q',
+                'W',
+                'E',
+                'R',
+                'T',
+                'Z',
+                'U',
+                'I',
+                'O',
+                'P',
+                'Ü',
+                'A',
+                'S',
+                'D',
+                'F',
+                'G',
+                'H',
+                'J',
+                'K',
+                'L',
+                'Ö',
+                'Ä',
+                'Y',
+                'X',
+                'C',
+                'V',
+                'B',
+                'N',
+                'M'
+            )
         }
     }
 
@@ -56,6 +89,16 @@ abstract class KeyboardKeys(
             Key(it, null)
         }.toList(),
     ) : KeyboardKeys(keys, Language.English) {
+        override fun withUpdatedButton(keys: List<Key>): KeyboardKeys {
+            return copy(keys = keys)
+        }
+    }
+
+    data class German(
+        override val keys: List<Key> = germanKeys.map {
+            Key(it, null)
+        }.toList(),
+    ) : KeyboardKeys(keys, Language.German) {
         override fun withUpdatedButton(keys: List<Key>): KeyboardKeys {
             return copy(keys = keys)
         }
